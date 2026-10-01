@@ -1,0 +1,795 @@
+SOFTWARE REQUIREMENTS SPECIFICATION (SRS)
+
+Hospital Management System
+
+Project Category: Web Application
+Frontend: React + TypeScript
+Backend: ASP.NET Core Web API
+Database: Microsoft SQL Server
+ORM: Entity Framework Core
+Authentication: ASP.NET Core Identity + JWT
+
+⸻
+
+1. Introduction
+
+1.1 Purpose
+
+The Hospital Management System is a web-based application designed to help hospitals manage patient information, appointments, medical records and other hospital activities digitally.
+
+The system will replace or reduce the use of paper-based records and make it easier for hospital staff and patients to access the information they need.
+
+This SRS explains what the system should do and what each project team is expected to work on.
+
+⸻
+
+2. Problem Statement
+
+Many hospitals still depend on manual and paper-based processes.
+
+This can result in:
+
+* Loss or misplacement of patient records
+* Long waiting times during patient registration
+* Difficulty managing appointments
+* Difficulty accessing patient medical history
+* Poor coordination between hospital staff
+* Inefficient management of hospital activities
+
+The proposed system will provide one centralized platform for managing these activities.
+
+⸻
+
+3. Objectives
+
+The system should:
+
+1. Allow patients to be registered and managed digitally.
+2. Allow patients to book and manage appointments.
+3. Allow doctors and authorized staff to view relevant patient information.
+4. Allow doctors to create and manage electronic medical records.
+5. Provide different dashboards depending on the user’s role.
+6. Secure patient and hospital information.
+7. Reduce unnecessary paperwork.
+8. Make hospital information easier to manage and access.
+
+⸻
+
+4. Target Users
+
+The system will have the following main users:
+
+4.1 Administrator
+
+The administrator manages the overall system.
+
+The administrator should be able to:
+
+* Manage users
+* Manage staff accounts
+* Assign user roles
+* View/manage patients
+* View/manage doctors and other staff
+* View appointments
+* Manage basic hospital information
+* Access administrative reports where applicable
+
+4.2 Doctor
+
+Doctors should be able to:
+
+* Log into the system
+* View their appointments
+* View assigned/relevant patient information
+* View a patient’s medical history
+* Create medical records
+* Update medical records
+* Add diagnosis and treatment information
+* Add prescriptions/medication information where applicable
+
+4.3 Nurse
+
+Nurses should be able to:
+
+* Log into the system
+* View relevant patient information
+* View assigned/relevant appointments
+* Access medical information they are authorized to see
+* Update information they are permitted to update
+
+4.4 Receptionist
+
+Receptionists should be able to:
+
+* Register patients
+* Update patient information
+* Schedule appointments
+* View appointments
+* Manage appointment status
+* Search for patient records
+
+4.5 Patient
+
+Patients should be able to:
+
+* Create/login to their account
+* View their profile
+* View their appointments
+* Request/book appointments
+* View appointment status
+* View their available medical records
+* Update permitted personal information
+
+⸻
+
+5. System Scope
+
+The first version of the system will focus on:
+
+* User authentication
+* User roles and permissions
+* Patient registration and management
+* Doctor/staff management
+* Appointment scheduling
+* Electronic Medical Records (EMR)
+* User dashboards
+* Secure access to patient information
+
+Features outside this scope can be considered future improvements.
+
+⸻
+
+6. Functional Requirements
+
+6.1 User Registration and Authentication
+
+The system must provide secure login and authentication.
+
+Users should be able to:
+
+* Log in with their credentials
+* Log out
+* Have their identity verified
+* Access features based on their role
+
+The system will use:
+
+* ASP.NET Core Identity
+* JWT authentication
+* Role-based authorization
+
+⸻
+
+6.2 User Roles and Permissions
+
+Each user must have an appropriate role.
+
+Example:
+
+Role	Main Access
+Administrator	Full system management
+Doctor	Patients, appointments and medical records
+Nurse	Authorized patient and medical information
+Receptionist	Patients and appointments
+Patient	Own profile, appointments and permitted records
+
+Users should not be able to access information or functions that their role does not permit.
+
+⸻
+
+7. Patient Management
+
+The system must allow authorized staff to register and manage patients.
+
+Patient information may include:
+
+* Patient ID
+* Full name
+* Date of birth
+* Gender
+* Phone number
+* Email
+* Address
+* Emergency contact
+* Other necessary registration information
+
+Authorized users should be able to:
+
+* Create a patient
+* View patient information
+* Search for a patient
+* Update patient information
+* View the patient’s relevant history
+
+⸻
+
+8. Appointment Management
+
+The system must allow appointments to be created and managed.
+
+An appointment should contain information such as:
+
+* Appointment ID
+* Patient
+* Doctor
+* Date
+* Time
+* Reason for visit
+* Appointment status
+
+Possible appointment statuses include:
+
+* Pending
+* Confirmed
+* Completed
+* Cancelled
+
+Patients
+
+Patients should be able to request/book appointments where applicable.
+
+Receptionists
+
+Receptionists should be able to schedule and manage appointments.
+
+Doctors
+
+Doctors should be able to view their scheduled appointments.
+
+⸻
+
+9. Electronic Medical Records (EMR)
+
+The system should allow authorized medical personnel to create and manage electronic medical records.
+
+A medical record may contain:
+
+* Patient
+* Doctor
+* Date
+* Symptoms/complaint
+* Diagnosis
+* Treatment
+* Prescription/medication
+* Doctor’s notes
+* Follow-up information
+
+Medical records should be associated with the correct patient.
+
+Only authorized users should be able to access or modify medical records.
+
+⸻
+
+10. Dashboards
+
+Different users should see different dashboards.
+
+Administrator Dashboard
+
+Should provide an overview of:
+
+* Users
+* Patients
+* Doctors/staff
+* Appointments
+* Other relevant hospital activities
+
+Doctor Dashboard
+
+Should provide:
+
+* Upcoming appointments
+* Patient information
+* Medical records
+* Relevant notifications/information
+
+Receptionist Dashboard
+
+Should provide:
+
+* Patient registration
+* Appointment management
+* Patient search
+
+Patient Dashboard
+
+Should provide:
+
+* Patient profile
+* Appointments
+* Appointment status
+* Available medical records
+
+Nurse Dashboard
+
+Should provide:
+
+* Relevant patient information
+* Assigned/relevant appointments
+* Authorized medical information
+
+⸻
+
+11. Search
+
+The system should provide search functionality where appropriate.
+
+Authorized users should be able to search for things such as:
+
+* Patients
+* Appointments
+* Doctors/staff
+* Medical records where permitted
+
+Search results must only display information the logged-in user is authorized to access.
+
+⸻
+
+12. Notifications and Status Information
+
+The system should clearly communicate important actions and statuses.
+
+For example:
+
+* Successful registration
+* Successful appointment booking
+* Appointment confirmation
+* Appointment cancellation
+* Invalid login
+* Invalid information
+* Unauthorized access
+
+The exact notification method can be decided during implementation.
+
+⸻
+
+13. Database Requirements
+
+The database will use Microsoft SQL Server and Entity Framework Core.
+
+The database should store information relating to:
+
+* Users
+* Roles
+* Patients
+* Doctors/staff
+* Appointments
+* Medical records
+* Prescriptions/medications where implemented
+
+The database must maintain proper relationships between records.
+
+For example:
+
+Patient → Appointments → Doctor
+
+and
+
+Patient → Medical Records → Doctor
+
+The database team should ensure:
+
+* Proper primary keys
+* Foreign keys
+* Appropriate relationships
+* Data validation
+* Avoidance of unnecessary duplicate data
+* Appropriate indexes where needed
+
+⸻
+
+14. Backend/API Requirements
+
+The backend will be developed using ASP.NET Core Web API.
+
+The backend should provide APIs for:
+
+Authentication
+
+* Register
+* Login
+* Logout/token handling as applicable
+* User/role management
+
+Patients
+
+* Create patient
+* Get patient
+* Get patients
+* Update patient
+* Search patients
+
+Appointments
+
+* Create appointment
+* Get appointment
+* Get appointments
+* Update appointment
+* Cancel appointment
+* Update appointment status
+
+Medical Records
+
+* Create medical record
+* View medical record
+* Update medical record
+* Retrieve patient medical history
+
+Users
+
+* Manage users
+* Assign/manage roles
+* Retrieve user information where authorized
+
+All protected APIs should require proper authentication and authorization.
+
+⸻
+
+15. Security Requirements
+
+Because the system handles sensitive hospital and patient information, security is important.
+
+The system should:
+
+* Require authentication
+* Use JWT authentication
+* Use role-based authorization
+* Protect passwords using ASP.NET Core Identity
+* Prevent unauthorized users from accessing patient records
+* Validate incoming data
+* Protect sensitive API endpoints
+* Avoid exposing unnecessary sensitive information in API responses
+* Handle authentication tokens securely
+
+Security testing should also be performed before submission.
+
+⸻
+
+16. Frontend Requirements
+
+The frontend will use React with TypeScript.
+
+The frontend should provide:
+
+* Login/register interfaces where applicable
+* Role-based dashboards
+* Patient management pages
+* Appointment pages
+* Medical record pages
+* User/profile pages
+* Navigation based on the user’s role
+* Forms for entering information
+* Search functionality
+* Error/success messages
+* Responsive and usable interfaces
+
+The frontend will communicate with the backend through the Web API.
+
+⸻
+
+17. API and Frontend Communication
+
+The frontend should not directly access the SQL Server database.
+
+The expected flow is:
+
+React Frontend → ASP.NET Core Web API → Entity Framework Core → SQL Server
+
+The API will handle:
+
+* Requests
+* Validation
+* Authentication
+* Authorization
+* Business logic
+* Database communication
+
+⸻
+
+18. Quality Assurance Requirements
+
+QA should verify that the system works as expected.
+
+Testing should include:
+
+Functional Testing
+
+Check that features work correctly.
+
+Examples:
+
+* Can a patient be registered?
+* Can an appointment be created?
+* Can a doctor view appointments?
+* Can a doctor create a medical record?
+
+Authentication Testing
+
+Check:
+
+* Correct login
+* Incorrect login
+* Unauthorized access
+* Role restrictions
+
+Validation Testing
+
+Check that:
+
+* Required fields cannot be left empty
+* Invalid information is rejected
+* Incorrect data formats are handled
+
+Integration Testing
+
+Check that:
+
+Frontend → API → Database
+
+works correctly.
+
+Security Testing
+
+Check that users cannot access functions or records belonging to other roles without permission.
+
+⸻
+
+19. DevOps Requirements
+
+The DevOps team should assist with:
+
+* Project deployment
+* Environment configuration
+* Backend deployment
+* Frontend deployment
+* Database configuration
+* Environment variables/secrets
+* Making sure deployed services communicate correctly
+* Deployment troubleshooting
+
+The final deployment links must be accessible before submission.
+
+⸻
+
+20. Error Handling
+
+The system should handle errors properly.
+
+Examples include:
+
+* Invalid login
+* Patient not found
+* Appointment not found
+* Invalid form information
+* Unauthorized access
+* Server errors
+* Database errors
+
+Users should receive understandable error messages rather than technical system errors.
+
+⸻
+
+21. Non-Functional Requirements
+
+21.1 Performance
+
+The system should respond reasonably quickly to normal user requests.
+
+21.2 Security
+
+Only authorized users should access protected information.
+
+21.3 Usability
+
+The system should be simple enough for hospital staff and patients to understand and use.
+
+21.4 Reliability
+
+The system should handle normal operations without losing or incorrectly modifying information.
+
+21.5 Maintainability
+
+The code should be organized so that different team members can work on and maintain the system.
+
+21.6 Scalability
+
+The system should be structured in a way that allows additional hospital features to be added later.
+
+⸻
+
+22. Basic System Workflow
+
+A typical patient workflow could be:
+
+Patient registers/logs in → Patient requests appointment → Appointment is scheduled/confirmed → Doctor sees appointment → Doctor accesses patient information → Doctor creates/updates medical record → Patient can view permitted information.
+
+A receptionist workflow could be:
+
+Receptionist logs in → Searches/registers patient → Creates appointment → Updates appointment status.
+
+A doctor workflow could be:
+
+Doctor logs in → Views appointments → Selects patient → Views medical history → Creates/updates medical record.
+
+An administrator workflow could be:
+
+Administrator logs in → Views dashboard → Manages users/staff → Manages roles → Oversees hospital activities.
+
+⸻
+
+23. Team Responsibilities
+
+Based on the project structure provided:
+
+Backend Team
+
+Responsible for:
+
+* ASP.NET Core Web API
+* Business logic
+* API endpoints
+* Authentication integration
+* Authorization
+* Patient management APIs
+* Appointment APIs
+* Medical record APIs
+* Backend validation
+* API documentation/testing support
+
+Frontend Team
+
+Responsible for:
+
+* React + TypeScript interface
+* Dashboards
+* Forms
+* Patient pages
+* Appointment pages
+* Medical record pages
+* Connecting frontend to API
+* User experience
+
+Database Team
+
+Responsible for:
+
+* SQL Server database
+* Database design
+* Tables/entities
+* Relationships
+* Constraints
+* Indexing where appropriate
+* EF Core database/migrations support
+
+Security Team
+
+Responsible for:
+
+* Authentication review
+* Authorization review
+* JWT security
+* Role/permission review
+* Identifying security weaknesses
+* Testing unauthorized access
+* Reviewing protection of patient information
+
+QA Team
+
+Responsible for:
+
+* Test cases
+* Functional testing
+* API testing
+* Integration testing
+* Authentication/authorization testing
+* Bug reporting
+* Regression testing
+
+DevOps Team
+
+Responsible for:
+
+* Deployment
+* Environment setup
+* Configuration
+* Hosting
+* Deployment troubleshooting
+* Ensuring frontend, backend and database services work together
+
+Project Manager
+
+Responsible for:
+
+* Coordinating the teams
+* Tracking progress
+* Making sure requirements are followed
+* Organizing communication
+* Monitoring deadlines
+* Making sure the final project is ready for submission
+
+⸻
+
+24. Project Assumptions
+
+The following assumptions apply to the first version:
+
+1. Users will have appropriate accounts and roles.
+2. Only authorized users can access protected information.
+3. The system will initially focus on the core hospital functions listed in this document.
+4. Advanced hospital features not listed here can be considered future improvements.
+5. The system will be a web application.
+6. The frontend and backend will communicate through REST APIs.
+
+⸻
+
+25. Future Improvements
+
+Possible features for future versions include:
+
+* Pharmacy management
+* Laboratory management
+* Billing and payments
+* Insurance management
+* SMS/email notifications
+* Prescription printing
+* Appointment reminders
+* Advanced hospital reports
+* Ambulance/emergency management
+* File/document uploads
+* Audit logs
+* Multi-branch hospital management
+
+These features are not required for the initial version unless the team decides otherwise.
+
+⸻
+
+26. Acceptance Criteria
+
+The project can be considered ready when:
+
+* Users can log in securely.
+* Roles and permissions work correctly.
+* Patients can be registered and managed.
+* Appointments can be created and managed.
+* Doctors can access relevant patient information.
+* Medical records can be created and accessed by authorized users.
+* The frontend successfully communicates with the backend.
+* The backend successfully communicates with the database.
+* Unauthorized users are prevented from accessing restricted information.
+* QA has tested the major functions.
+* The application is deployed successfully.
+* GitHub repositories are accessible.
+* Deployment links work.
+* The project video demonstrates each member’s contribution.
+
+⸻
+
+27. Final System Architecture
+
+The overall system should follow this structure:
+
+React + TypeScript
+
+↓
+
+ASP.NET Core Web API
+
+↓
+
+Entity Framework Core
+
+↓
+
+Microsoft SQL Server
+
+Authentication and authorization will be handled using:
+
+ASP.NET Core Identity + JWT
+
+⸻
+
+28. Conclusion
+
+The Hospital Management System will provide a centralized platform for managing patients, appointments, medical records and hospital users.
+
+This SRS provides a common understanding of what the project should achieve and what each team is responsible for. Any major changes or additional features should be discussed by the team before implementation so that the frontend, backend, database, security, QA and DevOps teams remain aligned.
