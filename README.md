@@ -1,4 +1,3 @@
-cat > README.md <<'EOF'
 # Hospital Management System
 
 Hospital Management System (HMS) is a web-based hospital management application being developed as an academic software project.
