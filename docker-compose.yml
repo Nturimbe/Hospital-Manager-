@@ -1,0 +1,55 @@
+# Local development stack: SQL Server + ASP.NET Core API + React web app.
+# Values written as ${NAME} are read from the local .env file (never committed).
+
+services:
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: hms-local-sql
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${SQL_SA_PASSWORD}"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql-data:/var/opt/mssql
+    healthcheck:
+      # $$ stops Compose from replacing the variable; the container's shell reads it instead.
+      # -C trusts the container's self-signed certificate (required by mssql-tools18).
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  api:
+    build:
+      context: ./src/server
+      dockerfile: Dockerfile
+    container_name: hms-local-api
+    depends_on:
+      sql-server:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: "Server=sql-server,1433;Database=HmsDb;User Id=sa;Password=${SQL_SA_PASSWORD};TrustServerCertificate=True;"
+      Jwt__Key: "${JWT_SIGNING_KEY}"
+      Jwt__Issuer: "hms-local"
+      Jwt__Audience: "hms-local-client"
+    ports:
+      - "5000:8080"
+
+  web:
+    build:
+      context: ./src/client
+      dockerfile: Dockerfile
+    container_name: hms-local-web
+    depends_on:
+      - api
+    environment:
+      VITE_API_BASE_URL: "http://localhost:5000/api"
+    ports:
+      - "3000:3000"
+
+volumes:
+  sql-data:
