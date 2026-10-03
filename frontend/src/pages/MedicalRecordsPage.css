@@ -1,0 +1,261 @@
+.records-page {
+  min-height: 100vh;
+  background: #f7f8fa;
+  color: #252a31;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.records-header {
+  height: 76px;
+  padding: 0 6%;
+  background: #ffffff;
+  border-bottom: 1px solid #e8eaed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.records-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.records-cross {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #d96767;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+  font-weight: 300;
+}
+
+.records-brand-text,
+.records-doctor {
+  display: flex;
+  flex-direction: column;
+}
+
+.records-brand-text strong {
+  font-size: 17px;
+  letter-spacing: 0.08em;
+}
+
+.records-brand-text span,
+.records-doctor span {
+  margin-top: 2px;
+  color: #9299a2;
+  font-size: 12px;
+}
+
+.records-doctor {
+  text-align: right;
+}
+
+.records-doctor strong {
+  font-size: 14px;
+}
+
+.records-content {
+  width: min(1120px, 88%);
+  margin: 0 auto;
+  padding: 42px 0 80px;
+}
+
+.records-back {
+  display: inline-block;
+  margin-bottom: 32px;
+  color: #777f89;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.records-back:hover {
+  color: #d96767;
+}
+
+.records-introduction {
+  margin-bottom: 28px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.records-eyebrow {
+  margin: 0 0 9px;
+  color: #d96767;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.records-introduction h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 650;
+}
+
+.records-introduction > div > p:last-child {
+  margin: 9px 0 0;
+  color: #777f89;
+  font-size: 14px;
+}
+
+.records-search input {
+  width: 280px;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: 1px solid #dfe2e6;
+  border-radius: 9px;
+  outline: none;
+  color: #333941;
+  font-size: 13px;
+}
+
+.records-search input:focus {
+  border-color: #d96767;
+}
+
+.records-error {
+  padding: 18px 20px;
+  background: #ffffff;
+  border: 1px solid #eedada;
+  border-radius: 10px;
+  color: #b65353;
+  font-size: 14px;
+}
+
+.records-empty {
+  padding: 70px 25px;
+  background: #ffffff;
+  border: 1px solid #e6e8eb;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.records-empty-cross {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 16px;
+  border-radius: 10px;
+  background: #f8eded;
+  color: #d96767;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+}
+
+.records-empty h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.records-empty p {
+  margin: 8px 0 0;
+  color: #8c939c;
+  font-size: 13px;
+}
+
+.records-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.medical-record-card {
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e5e7ea;
+  border-radius: 14px;
+}
+
+.record-card-header {
+  padding-bottom: 18px;
+  border-bottom: 1px solid #eeeeef;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.record-card-header span,
+.record-information span {
+  color: #969da6;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.record-card-header h2 {
+  margin: 5px 0 0;
+  font-size: 18px;
+}
+
+.record-badge {
+  padding: 7px 10px;
+  background: #f8eded;
+  border-radius: 7px;
+  color: #c15f5f;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.record-information {
+  padding-top: 19px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.record-information p {
+  margin: 6px 0 0;
+  color: #525a64;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.record-notes {
+  grid-column: 1 / -1;
+}
+
+.record-date {
+  margin: 20px 0 0;
+  padding-top: 15px;
+  border-top: 1px solid #eeeeef;
+  color: #9ca2aa;
+  font-size: 11px;
+}
+
+@media (max-width: 760px) {
+  .records-header {
+    padding: 0 5%;
+  }
+
+  .records-doctor {
+    display: none;
+  }
+
+  .records-content {
+    width: 90%;
+  }
+
+  .records-introduction {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .records-search input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .records-grid {
+    grid-template-columns: 1fr;
+  }
+}
