@@ -1,0 +1,269 @@
+.admin-page {
+  min-height: 100vh;
+  background: #f7f8fa;
+  color: #252a31;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.admin-header {
+  height: 76px;
+  padding: 0 6%;
+  background: #ffffff;
+  border-bottom: 1px solid #e8eaed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-brand,
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.admin-brand {
+  gap: 12px;
+}
+
+.admin-brand-cross {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #d96767;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+  font-weight: 300;
+}
+
+.admin-brand-text,
+.admin-user {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-brand-text strong {
+  font-size: 17px;
+  letter-spacing: 0.08em;
+}
+
+.admin-brand-text span,
+.admin-user span {
+  margin-top: 2px;
+  color: #9299a2;
+  font-size: 12px;
+}
+
+.admin-header-actions {
+  gap: 24px;
+}
+
+.admin-user {
+  text-align: right;
+}
+
+.admin-user strong {
+  font-size: 14px;
+}
+
+.admin-logout {
+  padding: 9px 15px;
+  background: #ffffff;
+  border: 1px solid #dfe2e6;
+  border-radius: 8px;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.admin-logout:hover {
+  background: #f8f8f8;
+}
+
+.admin-content {
+  width: min(1120px, 88%);
+  margin: 0 auto;
+  padding: 58px 0 80px;
+}
+
+.admin-welcome {
+  margin-bottom: 32px;
+}
+
+.admin-eyebrow {
+  margin: 0 0 10px;
+  color: #d96767;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.admin-welcome h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 650;
+}
+
+.admin-welcome > p:last-child {
+  margin: 10px 0 0;
+  color: #737b86;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.admin-error {
+  margin-bottom: 22px;
+  padding: 14px 17px;
+  background: #ffffff;
+  border: 1px solid #eedada;
+  border-radius: 9px;
+  color: #b65353;
+  font-size: 13px;
+}
+
+.admin-statistics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 44px;
+}
+
+.admin-stat-card {
+  padding: 22px;
+  background: #ffffff;
+  border: 1px solid #e5e7ea;
+  border-radius: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.admin-stat-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background: #f8eded;
+  border-radius: 10px;
+  color: #c15f5f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.admin-stat-card span {
+  color: #7e8690;
+  font-size: 12px;
+}
+
+.admin-stat-card strong {
+  display: block;
+  margin-top: 5px;
+  color: #292f36;
+  font-size: 28px;
+}
+
+.admin-stat-card p {
+  margin: 4px 0 0;
+  color: #9ba1a9;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.admin-section-heading {
+  margin-bottom: 18px;
+}
+
+.admin-section-heading h2 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.admin-section-heading p {
+  margin: 5px 0 0;
+  color: #8a919a;
+  font-size: 13px;
+}
+
+.admin-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.admin-action-card {
+  padding: 25px;
+  background: #ffffff;
+  border: 1px solid #e5e7ea;
+  border-radius: 14px;
+}
+
+.admin-action-number {
+  margin-bottom: 25px;
+  color: #d96767;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.admin-action-card h3 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.admin-action-card p {
+  min-height: 60px;
+  margin: 10px 0 22px;
+  color: #7f8791;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.admin-action-card button {
+  width: 100%;
+  padding: 11px;
+  background: #ffffff;
+  border: 1px solid #d96767;
+  border-radius: 8px;
+  color: #c45e5e;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-action-card button:hover {
+  background: #d96767;
+  color: #ffffff;
+}
+
+@media (max-width: 800px) {
+  .admin-statistics,
+  .admin-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-action-card p {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-header {
+    padding: 0 5%;
+  }
+
+  .admin-user {
+    display: none;
+  }
+
+  .admin-content {
+    width: 90%;
+    padding-top: 40px;
+  }
+
+  .admin-welcome h1 {
+    font-size: 28px;
+  }
+}
