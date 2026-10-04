@@ -1,0 +1,213 @@
+.management-page {
+  min-height: 100vh;
+  background: #f7f8fa;
+  color: #252a31;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.management-header {
+  height: 76px;
+  padding: 0 6%;
+  background: #ffffff;
+  border-bottom: 1px solid #e8eaed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.management-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.management-cross {
+  width: 38px;
+  height: 38px;
+  background: #d96767;
+  border-radius: 10px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+}
+
+.management-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.management-brand-text strong {
+  font-size: 17px;
+  letter-spacing: 0.08em;
+}
+
+.management-brand-text span {
+  margin-top: 2px;
+  color: #9299a2;
+  font-size: 12px;
+}
+
+.management-back {
+  color: #69717b;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.management-back:hover {
+  color: #d96767;
+}
+
+.management-content {
+  width: min(1120px, 88%);
+  margin: 0 auto;
+  padding: 55px 0 80px;
+}
+
+.management-title-row {
+  margin-bottom: 28px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.management-eyebrow {
+  margin: 0 0 9px;
+  color: #d96767;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.management-title-row h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 650;
+}
+
+.management-title-row > div > p:last-child {
+  margin: 9px 0 0;
+  color: #777f89;
+  font-size: 14px;
+}
+
+.management-search {
+  width: 270px;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: 1px solid #dfe2e6;
+  border-radius: 9px;
+  outline: none;
+}
+
+.management-search:focus {
+  border-color: #d96767;
+}
+
+.management-error {
+  margin-bottom: 20px;
+  padding: 15px 18px;
+  background: #ffffff;
+  border: 1px solid #eedada;
+  border-radius: 9px;
+  color: #b65353;
+  font-size: 13px;
+}
+
+.management-table-card {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e5e7ea;
+  border-radius: 14px;
+}
+
+.management-table-heading {
+  padding: 22px 24px;
+}
+
+.management-table-heading h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.management-table-heading p {
+  margin: 5px 0 0;
+  color: #9299a2;
+  font-size: 12px;
+}
+
+.management-table-wrapper {
+  overflow-x: auto;
+}
+
+.management-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.management-table th {
+  padding: 14px 24px;
+  background: #fafafa;
+  border-top: 1px solid #eeeeef;
+  color: #9097a0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: left;
+}
+
+.management-table td {
+  padding: 18px 24px;
+  border-top: 1px solid #eeeeef;
+  color: #626a74;
+  font-size: 13px;
+}
+
+.management-primary {
+  color: #30363d !important;
+  font-weight: 600;
+}
+
+.management-status {
+  padding: 6px 10px;
+  background: #f8eded;
+  border-radius: 20px;
+  color: #bd5c5c;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.management-empty {
+  margin: 0;
+  padding: 40px 24px;
+  border-top: 1px solid #eeeeef;
+  color: #8b929b;
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .management-header {
+    padding: 0 5%;
+  }
+
+  .management-content {
+    width: 90%;
+    padding-top: 40px;
+  }
+
+  .management-title-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .management-title-row h1 {
+    font-size: 27px;
+  }
+
+  .management-search {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

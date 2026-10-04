@@ -1,0 +1,282 @@
+.doctor-page {
+  min-height: 100vh;
+  background: #f7f8fa;
+  color: #1f2937;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.doctor-header {
+  height: 76px;
+  padding: 0 6%;
+  background: #ffffff;
+  border-bottom: 1px solid #e8eaed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.doctor-brand,
+.doctor-header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.doctor-brand {
+  gap: 12px;
+}
+
+.doctor-brand-cross {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #d96767;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+  font-weight: 300;
+}
+
+.doctor-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.doctor-brand-text strong {
+  font-size: 17px;
+  letter-spacing: 0.08em;
+}
+
+.doctor-brand-text span {
+  margin-top: 2px;
+  color: #8a919b;
+  font-size: 12px;
+}
+
+.doctor-header-actions {
+  gap: 24px;
+}
+
+.doctor-user {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.doctor-user strong {
+  font-size: 14px;
+}
+
+.doctor-user span {
+  margin-top: 3px;
+  color: #969da6;
+  font-size: 12px;
+}
+
+.doctor-logout {
+  padding: 9px 15px;
+  background: #ffffff;
+  border: 1px solid #dfe2e6;
+  border-radius: 8px;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.doctor-logout:hover {
+  background: #f8f8f8;
+}
+
+.doctor-content {
+  width: min(1120px, 88%);
+  margin: 0 auto;
+  padding: 58px 0 80px;
+}
+
+.doctor-welcome {
+  margin-bottom: 34px;
+}
+
+.doctor-eyebrow {
+  margin: 0 0 10px;
+  color: #d96767;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.doctor-welcome h1 {
+  margin: 0;
+  color: #20252b;
+  font-size: 34px;
+  font-weight: 650;
+}
+
+.doctor-welcome > div > p:last-child {
+  margin: 10px 0 0;
+  color: #737b86;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.doctor-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.doctor-summary-card {
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e6e8eb;
+  border-radius: 14px;
+}
+
+.doctor-summary-card span {
+  color: #7b838d;
+  font-size: 13px;
+}
+
+.doctor-summary-card strong {
+  display: block;
+  margin-top: 12px;
+  color: #252a31;
+  font-size: 30px;
+  font-weight: 650;
+}
+
+.doctor-summary-card p {
+  margin: 7px 0 0;
+  color: #9a9fa7;
+  font-size: 13px;
+}
+
+.doctor-appointments-card {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e6e8eb;
+  border-radius: 14px;
+}
+
+.doctor-card-heading {
+  padding: 24px;
+  border-bottom: 1px solid #eceef0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.doctor-card-heading h2 {
+  margin: 0;
+  color: #252a31;
+  font-size: 19px;
+}
+
+.doctor-card-heading p {
+  margin: 6px 0 0;
+  color: #8b929c;
+  font-size: 13px;
+}
+
+.doctor-records-button {
+  padding: 11px 17px;
+  background: #d96767;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.doctor-records-button:hover {
+  opacity: 0.9;
+}
+
+.doctor-error,
+.doctor-empty {
+  margin: 0;
+  padding: 30px 24px;
+  color: #858c95;
+  font-size: 14px;
+}
+
+.doctor-error {
+  color: #b65353;
+}
+
+.doctor-table-wrapper {
+  overflow-x: auto;
+}
+
+.doctor-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.doctor-table th {
+  padding: 14px 24px;
+  background: #fafafa;
+  color: #9097a0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: left;
+}
+
+.doctor-table td {
+  padding: 18px 24px;
+  border-top: 1px solid #f0f1f2;
+  color: #626a74;
+  font-size: 13px;
+}
+
+.doctor-patient-name {
+  color: #30363d !important;
+  font-weight: 600;
+}
+
+.doctor-status {
+  display: inline-block;
+  padding: 6px 10px;
+  background: #f8eded;
+  border-radius: 20px;
+  color: #bd5c5c;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  .doctor-header {
+    height: auto;
+    padding: 16px 5%;
+  }
+
+  .doctor-user {
+    display: none;
+  }
+
+  .doctor-content {
+    width: 90%;
+    padding-top: 40px;
+  }
+
+  .doctor-welcome h1 {
+    font-size: 28px;
+  }
+
+  .doctor-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .doctor-card-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .doctor-records-button {
+    width: 100%;
+  }
+}
