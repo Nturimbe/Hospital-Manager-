@@ -46,3 +46,7 @@ The backend allows only the exact origin https://hms-ug-hospital-portal.netlify.
 
 ## Smoke test result (4 Oct 2026, incognito window)
 On https://hms-ug-hospital-portal.netlify.app against the live Render API: login, booking an appointment, refreshing a non-home route, signing out and in again, and the browser console were checked and worked.
+
+
+## Local preview (`npm run preview`)
+The production build renders the login and register pages and survives a refresh on a non-home route. A browser login from `http://localhost:4173` is blocked by CORS by design, because the API allows only the Netlify origin (`FrontendUrl`); the build's requests go to the Render address, not localhost. The real login was verified on the Netlify site.
