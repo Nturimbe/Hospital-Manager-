@@ -33,7 +33,7 @@ The backend allows only the exact origin https://hms-ug-hospital-portal.netlify.
 - [x] No CORS error for the Netlify origin (preflight checked)
 - [ ] Protected dashboard loads (depends on login)
 - [x] React routes survive refresh (/login and /doctor return 200)
-- [x] Browser console checked.
+- [ ] Browser console checked
 - [ ] Incognito smoke test passed
 
 ## Known limitations
