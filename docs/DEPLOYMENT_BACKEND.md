@@ -7,7 +7,7 @@ The ASP.NET Core Web API (`backend/HospitalManagement.API`, .NET 10) runs as a D
 - Health check: https://hospital-manager-deploy.onrender.com/health
 
 ## Differences from the README plan
-The README names Azure App Service and Azure SQL as the planned cloud platform. This assignment uses Render for the API. Azure account verification was not available, so a free hosted SQL Server was used instead. Render could not read the private team repository, so the service builds from a private deployment copy (`hospital-manager-deploy`, branch `main`), which is pushed from the team branch `devops-backend-render`.
+The README names Azure App Service and Azure SQL as the planned cloud platform. This assignment uses Render for the API. Azure account verification was not available, so a free hosted SQL Server (MonsterASP.NET) was used instead. The Render service first built from a private deployment copy (`hospital-manager-deploy`) while Render had no access to the team repository; after the repository owner installed Render, the service was switched to build from this repository, branch `devops-backend-endpoints`.
 
 ## Code changes for production
 - `Program.cs` reads the `PORT` variable that Render provides.
@@ -23,7 +23,7 @@ The README names Azure App Service and Azure SQL as the planned cloud platform. 
 | Setting | Value |
 |---|---|
 | Service type | Web Service, Docker |
-| Branch | main (of the deployment copy) |
+| Branch | devops-backend-endpoints (team repository) |
 | Root / build context | backend/HospitalManagement.API |
 | Dockerfile path | backend/HospitalManagement.API/Dockerfile |
 | Health check path | /health |
