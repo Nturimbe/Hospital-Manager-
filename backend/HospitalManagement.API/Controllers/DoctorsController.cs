@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using HospitalManagement.API.Data;
 using HospitalManagement.API.DTOs;
 using HospitalManagement.API.Models;
@@ -37,6 +38,7 @@ public class DoctorsController : ControllerBase
         return doctor is null ? NotFound() : Ok(doctor);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<Doctor>> Create(DoctorDto dto)
     {

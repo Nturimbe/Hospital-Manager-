@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using HospitalManagement.API.Data;
 using HospitalManagement.API.DTOs;
 using HospitalManagement.API.Models;
@@ -8,6 +9,7 @@ namespace HospitalManagement.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class PatientsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
