@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using HospitalManagement.API.DTOs;
 using HospitalManagement.API.Models;
 using HospitalManagement.API.Services;
@@ -11,41 +12,51 @@ namespace HospitalManagement.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ITokenService _tokenService;
 
-        public AuthController(UserManager<ApplicationUser> userManager, ITokenService tokenService)
+        public AuthController(
+            UserManager<ApplicationUser> userManager, 
+            RoleManager<IdentityRole> roleManager, 
+            ITokenService tokenService)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _tokenService = tokenService;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+        public async Task<IActionResult> Register(RegisterDto dto)
         {
-            var userExists = await _userManager.FindByEmailAsync(registerDto.Email);
-            if (userExists != null)
-            {
-                return BadRequest("Email is already taken.");
-            }
+            const string role = "Patient";
+            
+            if (await _userManager.FindByEmailAsync(dto.Email) is not null)
+                return Conflict("An account with this email already exists.");
+
+            if (!await _roleManager.RoleExistsAsync(role))
+                await _roleManager.CreateAsync(new IdentityRole(role));
 
             var user = new ApplicationUser
             {
-                UserName = registerDto.Email,
-                Email = registerDto.Email
+                FirstName = dto.FirstName.Trim(),
+                LastName = dto.LastName.Trim(),
+                Email = dto.Email.Trim(),
+                UserName = dto.Email.Trim()
             };
 
-            var result = await _userManager.CreateAsync(user, registerDto.Password);
+            var result = await _userManager.CreateAsync(user, dto.Password);
 
             if (!result.Succeeded)
-            {
                 return BadRequest(result.Errors);
-            }
 
-            return Ok(new
+            await _userManager.AddToRoleAsync(user, role);
+
+            return Ok(new 
             {
-                Username = user.UserName,
-                Email = user.Email,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                Role = role,
+                Name = $"{user.FirstName} {user.LastName}",
+                Email = user.Email ?? string.Empty
             });
         }
     }
