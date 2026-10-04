@@ -29,15 +29,20 @@ The backend allows only the exact origin https://hms-ug-hospital-portal.netlify.
 ## Verification
 - [x] Production build succeeds
 - [x] Netlify deployment succeeds
-- [ ] Login reaches Render API (blocked: the Render service currently cannot reach the hosted database, a support ticket is open with the database host)
+- [x] Login reaches Render API
 - [x] No CORS error for the Netlify origin (preflight checked)
-- [ ] Protected dashboard loads (depends on login)
+- [x] Protected page loads after login
 - [x] React routes survive refresh (/login and /doctor return 200)
-- [ ] Browser console checked
-- [ ] Incognito smoke test passed
+- [x] Browser console checked
+- [x] Incognito smoke test passed
 
 ## Known limitations
 - The frontend calls `/appointments` and `/medical-records`, which the backend did not have. They were added by DevOps on branch `devops-backend-endpoints` for the backend authors to review.
 - Registration does not create a patient profile, so booking an appointment creates a minimal patient row (see the backend branch).
 - The admin dashboard loads patients, doctors and appointments in one `Promise.all`; if one request fails, none of the counts load.
 - The Render Free plan sleeps when idle; the first request can take up to a minute.
+
+- On 4 Oct 2026 the hosted database provider temporarily blocked one of Render's shared outbound addresses (automatic protection against repeated failed logins). The API returned errors until the provider unblocked it. Render outbound addresses are shared with other customers, so this can recur until the provider exempts Render's ranges; a support request asking for that has been sent.
+
+## Smoke test result (4 Oct 2026, incognito window)
+On https://hms-ug-hospital-portal.netlify.app against the live Render API: login, booking an appointment, refreshing a non-home route, signing out and in again, and the browser console were checked and worked.
