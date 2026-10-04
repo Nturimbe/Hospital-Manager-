@@ -37,7 +37,7 @@ The backend allows only the exact origin https://hms-ug-hospital-portal.netlify.
 - [x] Incognito smoke test passed
 
 ## Known limitations
-- The frontend calls `/appointments` and `/medical-records`, which the backend did not have. They were added by DevOps on branch `devops-backend-endpoints` for the backend authors to review.
+- The frontend calls `/appointments` and `/medical-records`, which the backend did not have. They were added by DevOps on branch `develop` for the backend authors to review.
 - Registration does not create a patient profile, so booking an appointment creates a minimal patient row (see the backend branch).
 - The admin dashboard loads patients, doctors and appointments in one `Promise.all`; if one request fails, none of the counts load.
 - The Render Free plan sleeps when idle; the first request can take up to a minute.

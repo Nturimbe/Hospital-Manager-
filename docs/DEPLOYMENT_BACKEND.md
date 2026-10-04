@@ -7,7 +7,7 @@ The ASP.NET Core Web API (`backend/HospitalManagement.API`, .NET 10) runs as a D
 - Health check: https://hospital-manager-deploy.onrender.com/health
 
 ## Differences from the README plan
-The README names Azure App Service and Azure SQL as the planned cloud platform. This assignment uses Render for the API. Azure account verification was not available, so a free hosted SQL Server (MonsterASP.NET) was used instead. The Render service first built from a private deployment copy (`hospital-manager-deploy`) while Render had no access to the team repository; after the repository owner installed Render, the service was switched to build from this repository, branch `devops-backend-endpoints`.
+The README names Azure App Service and Azure SQL as the planned cloud platform. This assignment uses Render for the API. Azure account verification was not available, so a free hosted SQL Server (MonsterASP.NET) was used instead. The Render service first built from a private deployment copy (`hospital-manager-deploy`) while Render had no access to the team repository; after the repository owner installed Render, the service was switched to build from this repository, branch `develop`.
 
 ## Code changes for production
 - `Program.cs` reads the `PORT` variable that Render provides.
@@ -23,7 +23,7 @@ The README names Azure App Service and Azure SQL as the planned cloud platform. 
 | Setting | Value |
 |---|---|
 | Service type | Web Service, Docker |
-| Branch | devops-backend-endpoints (team repository) |
+| Branch | develop (team repository) |
 | Root / build context | backend/HospitalManagement.API |
 | Dockerfile path | backend/HospitalManagement.API/Dockerfile |
 | Health check path | /health |
@@ -62,11 +62,11 @@ The hosted database must be updated again whenever a new migration is added.
 ## Known limitations
 - The Free plan sleeps when idle; open the health URL before a demo.
 - The free database host is shared; use test data only.
-- The `Microsoft.OpenApi` 2.0.0 package has a known vulnerability warning; the sample
+- The `Microsoft.OpenApi` 2.0.0 package (pulled in by the OpenAPI template) reports a known vulnerability warning during build. It is used only for the development-only OpenAPI document and has no effect on the production endpoints.
 
 
 ## Endpoints added by DevOps
-The frontend calls `GET/POST /api/appointments` and `GET /api/medical-records`, which the backend did not have. They were added in `AppointmentsController`, `MedicalRecordsController` and `AppointmentCreateDto` (branch `devops-backend-endpoints`) for the backend authors to review or replace. Both require login. Patients see only their own data. Registration does not create a patient profile, so booking creates a minimal one for the logged-in user.
+The frontend calls `GET/POST /api/appointments` and `GET /api/medical-records`, which the backend did not have. They were added in `AppointmentsController`, `MedicalRecordsController` and `AppointmentCreateDto` (branch `develop`) for the backend authors to review or replace. Both require login. Patients see only their own data. Registration does not create a patient profile, so booking creates a minimal one for the logged-in user.
 
 ## Verification of the new endpoints (4 Oct 2026, live)
 | Check | Result |
