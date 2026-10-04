@@ -20,7 +20,7 @@ var connectionString =
     builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString, sql => sql.EnableRetryOnFailure()));
 
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole>()
