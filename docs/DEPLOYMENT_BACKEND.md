@@ -63,3 +63,21 @@ The hosted database must be updated again whenever a new migration is added.
 - The Free plan sleeps when idle; open the health URL before a demo.
 - The free database host is shared; use test data only.
 - The `Microsoft.OpenApi` 2.0.0 package has a known vulnerability warning; the sample
+
+
+## Endpoints added by DevOps
+The frontend calls `GET/POST /api/appointments` and `GET /api/medical-records`, which the backend did not have. They were added in `AppointmentsController`, `MedicalRecordsController` and `AppointmentCreateDto` (branch `devops-backend-endpoints`) for the backend authors to review or replace. Both require login. Patients see only their own data. Registration does not create a patient profile, so booking creates a minimal one for the logged-in user.
+
+## Verification of the new endpoints (4 Oct 2026, live)
+| Check | Result |
+|---|---|
+| POST /api/appointments with token | 201 |
+| GET /api/appointments with token | 200, shows the booked visit |
+| GET /api/medical-records with token | 200 |
+| GET /api/appointments without token | 401 |
+| GET /api/medical-records without token | 401 |
+| CORS preflight from https://hms-ug-hospital-portal.netlify.app | Origin allowed |
+| CORS preflight from an unlisted origin | No CORS headers |
+
+## Incident: database host blocked Render
+On 4 Oct 2026 the database provider's automatic security system blocked Render's shared outbound address 74.220.51.162 for 24 hours, and the API returned 500 errors with SQL timeouts (error 258). The provider unblocked it after a support ticket. Render's outbound addresses (74.220.51.0/24 and 74.220.59.0/24) are shared with other customers, so the block can recur. A request to exempt those ranges has been sent. A database with an explicit firewall allow-list (for example Azure SQL, as planned in the README) would avoid this.
