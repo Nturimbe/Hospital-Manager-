@@ -1,4 +1,8 @@
-export type UserRole = "Admin" | "Doctor" | "Receptionist" | "Patient";
+export type UserRole =
+  | "Admin"
+  | "Doctor"
+  | "Receptionist"
+  | "Patient";
 
 export interface LoginRequest {
   email: string;
@@ -15,7 +19,8 @@ export interface RegisterRequest {
 export interface AuthResponse {
   token: string;
   role: UserRole;
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
+  firstName?: string;
+  lastName?: string;
 }
