@@ -16,7 +16,7 @@ export default function ReceptionistPage() {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [error, setError] = useState("");
 
-  const { name, logout } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function ReceptionistPage() {
 
         <div className="receptionist-header-actions">
           <div className="receptionist-user">
-            <strong>{name || "Receptionist"}</strong>
+            <strong>Receptionist</strong>
             <span>Receptionist</span>
           </div>
 
@@ -72,9 +72,7 @@ export default function ReceptionistPage() {
               RECEPTIONIST PORTAL
             </p>
 
-            <h1>
-              Welcome{name ? `, ${name.split(" ")[0]}` : ""}.
-            </h1>
+            <h1>Welcome back!</h1>
 
             <p>
               Register patients and access patient information
