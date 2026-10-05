@@ -102,3 +102,7 @@ hospital-management-system/
 ├── .editorconfig
 ├── .gitignore
 └── README.md
+
+## Production Links
+Frontend: https://hms-ug-hospital-portal.netlify.app
+Backend API: https://hospital-manager-deploy.onrender.com
