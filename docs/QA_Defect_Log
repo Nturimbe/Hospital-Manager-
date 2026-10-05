@@ -1,0 +1,159 @@
+# QA Defect Log — Backend API
+
+Tester: Nyognu Nturimbe ID: 11254227
+Environment: Live deployment, https://hospital-manager-deploy.onrender.com/api
+Branch/Commit: develop @ 07f9017
+Date logged: 5 October 2026
+
+---
+
+## DEFECT-001 — Public self-registration grants Admin role
+
+**Severity:** Critical
+**Related test:** API-06
+**Status:** Open
+
+**Endpoint:** `POST /api/Auth/register`
+
+**Steps to reproduce:**
+1. Send a registration request with no authentication, body:
+```json
+{
+  "firstName": "Qa",
+  "lastName": "Admin",
+  "email": "<any unused email>",
+  "password": "Password1!",
+  "role": "Admin"
+}
+```
+2. Observe the response.
+
+**Expected result:** Public self-registration should not be able to grant an Admin role. Either the request should be rejected, or the `role` field should be ignored/forced to a safe default (e.g. `Patient`) for unauthenticated registration.
+
+**Actual result:** `200 OK`. A valid, correctly signed JWT is returned with the `role` claim set to `"Admin"`. Decoded token payload confirms:
+```json
+"http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "Admin"
+```
+Reproduced twice, with two separate accounts (`test-admin@example.com` and `qa.admin.selfregister@example.com`), both successful.
+
+**Root cause (source review, `AuthController.cs`):**
+```csharp
+private static readonly string[] AllowedRoles =
+    { "Admin", "Doctor", "Receptionist", "Patient" };
+...
+if (!AllowedRoles.Contains(dto.Role))
+    return BadRequest("Invalid role.");
+```
+`Register` only checks that the submitted role is one of the four known role names — it does not restrict which roles the public endpoint is allowed to grant. Any caller can set `"role": "Admin"` directly.
+
+**Impact:** Any unauthenticated person can obtain full Admin access to a hospital records system — patient data, doctor records, and (once implemented) medical records. This is the highest-priority fix in the system.
+
+**Suggested fix direction (for Backend/Security to confirm):** Public `/register` should only ever be able to create `Patient` accounts. Creating `Doctor`, `Receptionist`, or `Admin` accounts should require an existing Admin's authorization (e.g. a separate, `[Authorize(Roles="Admin")]`-protected endpoint, or an invite/approval flow) — not be selectable by the registering user.
+
+**Assigned to:** Backend Engineer, Security Engineer
+
+---
+
+## DEFECT-002 — Doctor records can be modified/deleted with no authentication
+
+**Severity:** Critical
+**Related test:** API-09
+**Status:** Open
+
+**Endpoint:** `DELETE /api/Doctors/{id}` (and by the same code pattern, `PUT /api/Doctors/{id}`)
+
+**Steps to reproduce:**
+1. Send `DELETE https://hospital-manager-deploy.onrender.com/api/Doctors/999999` with **no `Authorization` header at all**.
+2. Observe the response.
+
+**Expected result:** `401 Unauthorized` — the request should be rejected before the server even looks up the record, since no credentials were supplied.
+
+**Actual result:** `404 Not Found` (RFC 9110 Problem Details response). This confirms the request was processed by the controller action itself — no authorization check intercepted it. If the endpoint were properly protected, the framework would return `401` before the doctor lookup runs, regardless of whether that ID exists.
+
+**Root cause (source review, `DoctorsController.cs`):**
+```csharp
+[HttpGet]                          // public — by design, confirmed
+[HttpGet("{id:int}")]              // public — by design, confirmed
+[Authorize]
+[HttpPost]                         // protected — correct
+[HttpPut("{id:int}")]              // NOT protected — no [Authorize] above this action
+[HttpDelete("{id:int}")]           // NOT protected — no [Authorize] above this action
+```
+Only the `POST` (create) action carries `[Authorize]`. `PUT` (update) and `DELETE` have no authorization attribute at either the class or method level.
+
+**Impact:** Any unauthenticated person can modify or permanently delete any doctor's record in the system.
+
+**Reproduced a second time** (independent request, different `traceId: 00-86d870b6287caf9fb6f156170394a218-3e563baaa9f716aa-00`), same result — `404 Not Found`, no `401` challenge. Confirms the behavior is consistent, not a one-off.
+
+**Reproduced a third time with a real doctor ID** (not a nonexistent one) — request returned `500 Internal Server Error` instead of `404`/`401`. This is the strongest confirmation yet: the request reached the database layer and failed there, which is only possible if no authorization check intercepted it earlier. See DEFECT-004 below for the crash itself.
+
+**Suggested fix direction:** Add `[Authorize]` (scoped to the appropriate role, e.g. Admin) to both the `PUT` and `DELETE` actions in `DoctorsController`.
+
+**Assigned to:** Backend Engineer, Security Engineer
+
+---
+
+## DEFECT-003 — No validation on appointment date or double-booking
+
+**Severity:** Medium
+**Related tests:** API-11, API-12
+**Status:** Open — found via source review; live confirmation still needed
+
+**Endpoint:** `POST /api/Appointments`
+
+**Finding method:** Source review of `AppointmentsController.cs`, `Create` action — not yet live-tested due to time constraints on this pass.
+
+**Details:** The `Create` action performs no check against:
+- `appointmentDate` being in the past
+- an existing appointment already booked for the same `doctorId` at the same `appointmentDate`
+
+Any date (past or future) and any number of overlapping bookings for the same doctor/slot are accepted as submitted and saved directly.
+
+**Expected behavior (per SRS FR-3.1 and QA test plan):** Past-dated appointments should be rejected; a doctor should not be double-booked for the same slot.
+
+**Suggested next step:** Live-confirm with two POST requests (same `doctorId`, same `appointmentDate`, different authenticated patients) and one POST with a past `appointmentDate`, to verify both are silently accepted before this is escalated further.
+
+**Assigned to:** Backend Engineer
+
+---
+
+## DEFECT-004 — Deleting a doctor with related records crashes with an unhandled 500
+
+**Severity:** High
+**Related test:** API-09 (follow-up)
+**Status:** Open — root cause inferred from source; exact exception body not yet captured
+
+**Endpoint:** `DELETE /api/Doctors/{id}`
+
+**Steps to reproduce:**
+1. `DELETE https://hospital-manager-deploy.onrender.com/api/Doctors/1` (an existing doctor with likely-linked appointment data from prior deployment verification testing — see `docs/DEPLOYMENT_BACKEND.md`).
+2. Observe the response.
+
+**Actual result:** `500 Internal Server Error` (bare status reported; exact response body not yet captured — recommended follow-up: re-run and paste the full body to confirm the exact exception).
+
+**Root cause (source review, `DoctorsController.cs`):**
+```csharp
+[HttpDelete("{id:int}")]
+public async Task<IActionResult> Delete(int id)
+{
+    var doctor = await _context.Doctors.FindAsync(id);
+    if (doctor is null) return NotFound();
+    _context.Doctors.Remove(doctor);
+    await _context.SaveChangesAsync();
+    return NoContent();
+}
+```
+No check for related `Appointment` or `MedicalRecord` rows before deleting, and no `try`/`catch` around `SaveChangesAsync()`. If the doctor has related records, SQL Server rejects the delete on a foreign key constraint, EF Core throws a `DbUpdateException`, and it propagates unhandled to a generic `500` — the same failure pattern seen earlier with the unhandled `SqlException` during local setup.
+
+**Impact:** Two-fold — (1) this is itself an unhandled-exception crash a user can trigger, which is bad regardless of auth; (2) combined with DEFECT-002, anyone unauthenticated can trigger this crash on any doctor with linked data.
+
+**Suggested fix direction:** Once DEFECT-002's `[Authorize]` fix is in place, also add either a pre-check ("reject with `409 Conflict` if the doctor has related appointments/records") or a `try`/`catch` around the delete that returns a clean `400`/`409` instead of an unhandled `500`.
+
+**Assigned to:** Backend Engineer
+
+---
+
+## Not yet tested (time-constrained pass)
+
+- **Duplicate doctor license number** (`POST /api/Doctors` with a `licenseNumber` already in use) — `DoctorsController.Create` validation logic was not reviewed in this pass. Needs a follow-up test.
+- **Role-based data visibility on `GET /api/Appointments` and `GET /api/medical-records`** beyond the empty-list case observed — needs testing with a Patient who actually has appointments/records belonging to *another* patient, to confirm the `IsInRole("Patient")` scoping in both controllers can't be bypassed.
