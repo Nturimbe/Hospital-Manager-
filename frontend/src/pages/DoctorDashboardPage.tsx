@@ -16,7 +16,7 @@ export default function DoctorDashboardPage() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [error, setError] = useState("");
 
-  const { name, logout } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function DoctorDashboardPage() {
 
         <div className="doctor-header-actions">
           <div className="doctor-user">
-            <strong>{name || "Doctor"}</strong>
+            <strong>Doctor</strong>
             <span>Doctor</span>
           </div>
 
@@ -70,9 +70,7 @@ export default function DoctorDashboardPage() {
           <div>
             <p className="doctor-eyebrow">DOCTOR PORTAL</p>
 
-            <h1>
-              Welcome{name ? `, Dr. ${name.split(" ")[0]}` : ""}.
-            </h1>
+            <h1>Welcome back!</h1>
 
             <p>
               Review your appointments and access patient medical

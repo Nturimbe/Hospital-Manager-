@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import "./PatientHomePage.css";
 
 export default function PatientHomePage() {
-  const { name, logout } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -26,11 +26,11 @@ export default function PatientHomePage() {
         <div className="patient-header-actions">
           <div className="patient-profile">
             <div className="patient-avatar">
-              {name ? name.charAt(0).toUpperCase() : "P"}
+              "P"
             </div>
 
             <div>
-              <strong>{name || "Patient"}</strong>
+              <strong>Patient</strong>
               <span>Patient</span>
             </div>
           </div>
@@ -50,10 +50,7 @@ export default function PatientHomePage() {
           <div>
             <p className="patient-eyebrow">PATIENT PORTAL</p>
 
-            <h1>
-              Welcome back
-              {name ? `, ${name.split(" ")[0]}` : ""}.
-            </h1>
+            <h1>Welcome back!</h1>
 
             <p>
               Manage your appointments and access your hospital

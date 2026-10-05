@@ -22,7 +22,7 @@ export default function AdminDashboardPage() {
   const [appointmentCount, setAppointmentCount] = useState(0);
   const [error, setError] = useState("");
 
-  const { name, logout } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function AdminDashboardPage() {
 
         <div className="admin-header-actions">
           <div className="admin-user">
-            <strong>{name || "Administrator"}</strong>
+            <strong>Administrator</strong>
             <span>Administrator</span>
           </div>
 
@@ -83,9 +83,7 @@ export default function AdminDashboardPage() {
         <div className="admin-welcome">
           <p className="admin-eyebrow">ADMINISTRATION</p>
 
-          <h1>
-            Welcome{name ? `, ${name.split(" ")[0]}` : ""}.
-          </h1>
+          <h1>Welcome back!</h1>
 
           <p>
             Monitor hospital activity and manage the main areas
