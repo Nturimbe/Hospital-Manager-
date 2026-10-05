@@ -39,12 +39,10 @@ export function AuthProvider({
 
   const login = (authData: AuthResponse) => {
     const fullName =
-      authData.name?.trim() ||
+      authData.name ||
       [authData.firstName, authData.lastName]
         .filter(Boolean)
-        .join(" ")
-        .trim() ||
-      authData.email;
+        .join(" ");
 
     localStorage.setItem("token", authData.token);
     localStorage.setItem("role", authData.role);
